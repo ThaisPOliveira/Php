@@ -1,37 +1,43 @@
+<!-- Professora Célia Regina Bueno Figueira
+  Etec de Poá
+ salvar como entrada.php -->
 <HTML>
 <HEAD>
- <TITLE>entrada</TITLE>
+ <TITLE>Verificação da senha</TITLE>
 </HEAD>
 <BODY>
 <?php
+ require_once('conexao/conexao.php');
+	//criando o objeto mysql e conectando ao banco de dados
+	$mysql = new BancodeDados();
+	$mysql -> conecta();
+	
+   $plogin=$_POST['login'];
+   $psenha=$_POST['senha'];
+   // ajustando a instrução select verificar usuario e senha
+    $sqlstring = "select * from tbusuario where login='$plogin' and senha='$psenha'"  ;
+    echo $sqlstring;
+	$result = @mysqli_query($mysql->con, $sqlstring);
+	$total = $result -> num_rows;
+  if($total==1){
+        $dados=mysqli_fetch_array($result);
+      	session_start();
+      	$_SESSION['id']= $dados['id'];
+ 		$_SESSION['nome'] =$dados['nome'];
+		$_SESSION['log'] = 'ativo';
+		 $_SESSION['nivel'] = $dados['nivel'];
 
- $nome = $_POST["nome"];
- $senha = $_POST["senha"];
- //funclogar//
- 
-function logar($no, $ni, $log){
-         echo"voce logou com sucesso!";
-         session_start();
-         $_SESSION['nome'] = $no;
-         $_SESSION['nivel'] = $ni;
-         $_SESSION['log'] = $log;
-         echo"<br><a href='principal.php'> <b>Pagina principal</b> </a>";
-}
- 
- //CODIGO//
- if (($nome=="adm")&&($senha=="8008")){
-    logar($nome, "adm", "ativo");
-  }
-  else if(($nome=="leonel")&&($senha=="incel")){
-       logar($nome, "usuario", "ativo");
-  }
-  else{
-       echo"senha ou login invalido!";
-       echo"<br><a href='index.php'> <b>Voltar ao inicio</b> </a>";
-       
-  }
- 
+		  echo"<script language='javascript' type='text/javascript'>
+          alert('você esta logado');window.location.href='cadastro.php';
+          </script>";
 
-?>
+     }
+      else {
+      	  echo"<script language='javascript' type='text/javascript'>
+            alert('senha ou login invalido');window.location.href
+            ='naoentrou.php';</script>";
+      }
+      $mysql->fechar();
+ ?>
 </BODY>
 </HTML>
