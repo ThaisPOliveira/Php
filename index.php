@@ -1,18 +1,37 @@
- <!-- Professora Célia Regina Bueno Figueira
-  Etec de Poá
- salvar como index.php -->
 <HTML>
 <HEAD>
- <TITLE>teste com sessão</TITLE>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-</head>
-<!--<BODY BGCOLOR="#DEDDDE">    -->
-<BODY BGCOLOR="#F6CEEC">
-<h1> Pagina principal entrada para o  login "home" </h1>
-<br>   <br>  <br>
-<form action="entrada.php" method="post" enctype="multipart/form-data">
-Login: <input type="text" name="login" id="login" />
-senha: <input type="text" name="senha" id="senha" />
-	<br><p>		<input type="submit" name="Cadastrar" value="logar">
+ <TITLE>leonel bandeira</TITLE>
+</HEAD>
+<BODY>
+
+<form action="checpag.php" method="post">
+
+      <label>Produto</label>
+      <input name="prodname" value="" type="text">
+      <br><br>
+      <label>Quantidade</label>
+      <input name="prodquant" value="" type="number">
+      <br><br>
+      <label>Preco</label>
+      <input name="prodpreco" value="" type="text">
+      <br><br>
+      <label>Valor minimo das parcelas</label>
+      <input name="minparce" value="" type="text">
+      <br><br>
+      <label>Numero de parcelas</label>
+      <select name="numparce">
+      
+      <?php
+      for($i = 1;$i<=60;$i++){
+             echo"<option value$i>$i</option>";
+      }
+      ?>
+      </select>
+      <br><br>
+      <input name="submit" type="submit" value="cadastrar">
+
+</form>
+
+
 </BODY>
 </HTML>
